@@ -31,7 +31,7 @@ with open(csv_file_path, mode='r', newline='', encoding='utf-8') as csv_file:
 
            
 
-            review = {
+            author = {
                 '_id': author_id,
                 'skin_tone': unitialized(skin_tone),
                 'eye_color': unitialized(eye_color),
@@ -40,7 +40,7 @@ with open(csv_file_path, mode='r', newline='', encoding='utf-8') as csv_file:
             }
 
           
-            authors_list.append(review)
+            authors_list.append(author)
             
 
        

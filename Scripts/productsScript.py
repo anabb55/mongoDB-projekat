@@ -57,7 +57,7 @@ with open(csv_file_path, mode='r', newline='', encoding='utf-8') as csv_file:
         }
         
 
-        variation = {
+        product = {
             '_id': product_id,
             'product_name': uninitialized(product_name),
             'loves_count': uninitialized(loves_count),
@@ -78,7 +78,7 @@ with open(csv_file_path, mode='r', newline='', encoding='utf-8') as csv_file:
             
         }
 
-        products_list.append(variation)
+        products_list.append(product)
 
 output_file_path = 'C:/Users/Hp/Desktop/sbp projekat/products.json'
 
