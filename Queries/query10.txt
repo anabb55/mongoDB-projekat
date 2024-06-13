@@ -1,0 +1,202 @@
+db.getCollection("products").aggregate(
+
+    // Pipeline
+    [
+        // Stage 1
+        {
+            $addFields: {
+                price_num:  {
+                                $cond: {
+                                  if: { $regexMatch: { input: "$price", regex: /^[0-9]+$/ } },  // Proverava da li je niz ceo broj
+                                  then: { $toInt: "$price" },
+                                  else: { $round: [{ $toDouble: "$price" }, 0] }  // Zaokružuje decimalni broj na ceo broj
+                                }
+                              }
+            
+            }
+        },
+
+        // Stage 2
+        {
+            $match: {
+                  price_num: { $gte: 30, $lte: 60 }   ,     // Proizvodi sa originalnom cenom između 30 i 60 dolara
+                
+                "online_only": false // Proizvodi koji nisu samo online ekskluziva
+            }
+        },
+
+        // Stage 3
+        {
+            $lookup: {
+                from: "reviews",
+                localField: "_id",
+                foreignField: "product_id",
+                as: "product_reviews"
+            }
+        },
+
+        // Stage 4
+        {
+            $unwind: {
+                path: "$product_reviews"
+            }
+        },
+
+        // Stage 5
+        {
+            $match: {
+                "product_reviews.rating": { $gte: 4 },
+                "brand.brand_name": "Caudalie"            
+            }
+        },
+
+        // Stage 6
+        {
+            $lookup: {
+                from: "authors",
+                localField: "product_reviews.author_id",
+                foreignField: "_id",
+                as: "author_details"
+            }
+        },
+
+        // Stage 7
+        {
+            $unwind: {
+                path: "$author_details"
+            }
+        },
+
+        // Stage 8
+        {
+            $group: {
+                _id: {
+                    productId: "$_id",
+                    productName: "$product_name",
+                    price: "$price_num",  // Include the price
+                    skinType: "$author_details.skin_type"
+                },
+                totalReviewsBySkinType: { $sum: 1 },  // Count of reviews per skin type
+                averageRating: { $avg: "$product_reviews.rating" }  // Average rating
+            }
+        },
+
+        // Stage 9
+        {
+            $group: {
+                _id: "$_id.productId",
+                productName: { $first: "$_id.productName" },
+                price: {$first:"$_id.price"},  // Include the price
+                averageRating: { $avg: "$averageRating" },
+                totalReviews: { $sum: "$totalReviewsBySkinType" },  // Total reviews for each product
+                reviewsBySkinType: {
+                    $push: {
+                        skinType: "$_id.skinType",
+                        count: "$totalReviewsBySkinType"
+                    }
+                }
+            }
+        },
+
+        // Stage 10
+        {
+            $addFields: {
+                dryPercentage: {
+                    $let: {
+                        vars: {
+                            dryCount: {
+                                $reduce: {
+                                    input: "$reviewsBySkinType",
+                                    initialValue: 0,
+                                    in: {
+                                        $cond: [
+                                            { $eq: ["$$this.skinType", "dry"] },
+                                            { $add: ["$$value", "$$this.count"] },
+                                            "$$value"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        in: {
+                            $multiply: [
+                                { $divide: ["$$dryCount", "$totalReviews"] },
+                                100
+                            ]
+                        }
+                    }
+                },
+                oilyPercentage: {
+                    $let: {
+                        vars: {
+                            oilyCount: {
+                                $reduce: {
+                                    input: "$reviewsBySkinType",
+                                    initialValue: 0,
+                                    in: {
+                                        $cond: [
+                                            { $eq: ["$$this.skinType", "oily"] },
+                                            { $add: ["$$value", "$$this.count"] },
+                                            "$$value"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        in: {
+                            $multiply: [
+                                { $divide: ["$$oilyCount", "$totalReviews"] },
+                                100
+                            ]
+                        }
+                    }
+                },
+                combinationPercentage: {
+                    $let: {
+                        vars: {
+                            combinationCount: {
+                                $reduce: {
+                                    input: "$reviewsBySkinType",
+                                    initialValue: 0,
+                                    in: {
+                                        $cond: [
+                                            { $eq: ["$$this.skinType", "combination"] },
+                                            { $add: ["$$value", "$$this.count"] },
+                                            "$$value"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        in: {
+                            $multiply: [
+                                { $divide: ["$$combinationCount", "$totalReviews"] },
+                                100
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+
+        // Stage 11
+        {
+            $project: {
+                _id: 0,
+                productName: 1,
+                averageRating: 1,
+                totalReviews: 1,
+                price: 1,  // Include the price
+                dryPercentage: 1,
+                oilyPercentage: 1,
+                combinationPercentage: 1
+            }
+        },
+
+        // Stage 12
+        {
+            $sort: { price: 1 }
+        }
+    ],
+
+);

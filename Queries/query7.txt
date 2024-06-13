@@ -1,0 +1,104 @@
+db.getCollection("reviews").aggregate(
+
+    [
+        // Stage 1
+        {
+            $match: {submission_time: { 
+                            $gte: "2023-02-01", 
+                            $lt: "2023-04-01" 
+                        }}
+        },
+
+        // Stage 2
+        {
+            $lookup: {
+                        from: "feedbackStatistics",
+                        localField: "_id",
+                        foreignField: "review_id",
+                        as: "feedback_stats"
+                    
+            }
+        },
+
+        // Stage 3
+        {
+            $unwind: {
+                path: "$feedback_stats"
+            }
+        },
+
+        // Stage 4
+        {
+            $match: { 
+                        "feedback_stats.helpfulness": 1,
+                        "feedback_stats.total_feedback_count": { $gt: 5 }
+            }
+        },
+
+        // Stage 5
+        {
+            $addFields: {
+                  total_feedback_count: "$feedback_stats.total_feedback_count",
+                  total_pos_feedback_count: "$feedback_stats.total_pos_feedback_count",
+                  total_neg_feedback_count: "$feedback_stats.total_neg_feedback_count",
+                  positive_percentage: {
+                    $multiply: [
+                      {
+                        $cond: [
+                          { $gt: ["$feedback_stats.total_feedback_count", 0] },
+                          {
+                            $divide: ["$feedback_stats.total_pos_feedback_count", "$feedback_stats.total_feedback_count"]
+                          },
+                          0
+                        ]
+                      },
+                      100
+                    ]
+                  },
+                  negative_percentage: {
+                    $multiply: [
+                      {
+                        $cond: [
+                          { $gt: ["$feedback_stats.total_feedback_count", 0] },
+                          {
+                            $divide: ["$feedback_stats.total_neg_feedback_count", "$feedback_stats.total_feedback_count"]
+                          },
+                          0
+                        ]
+                      },
+                      100
+                    ]
+                  }
+                }
+        },
+
+        // Stage 6
+        {
+            $project: {
+                  review_id: "$_id",
+                  author_id: 1,
+                  product_id: 1,
+                  rating: 1,
+                  submission_time: 1,
+                  total_feedback_count: 1,
+                  total_pos_feedback_count: 1,
+                  total_neg_feedback_count: 1,
+                  positive_percentage: 1,
+                  negative_percentage: 1
+                }
+        },
+
+        // Stage 7
+        {
+            $limit: // positive integer
+             1000
+        },
+
+        // Stage 8
+        {
+            $sort: { 
+                        submission_time: 1 
+                    }
+        }
+    ],
+);
