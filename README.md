@@ -147,7 +147,7 @@ Rezultati ove analize pružiće vredne uvide u performanse određenih proizvoda 
 
 **Cilj Analize:**
 
-Istražite asortiman proizvoda koji spajaju visoku ocenu korisničkog zadovoljstva s pristupačnošću. Fokusirajte se na proizvode čija se cena kreće u opsegu od 30 do 60 dolara i koji imaju ocene veće od 4, što ukazuje na visok kvalitet. Dodatno, izračunajte i analizirajte sledeće pokazatelje za svaki proizvod:
+Istražite asortiman proizvoda koji spajaju visoku ocenu korisničkog zadovoljstva s pristupačnošću. Fokusirajte se na proizvode čija se cena kreće u opsegu od 30 do 60 dolara i koji imaju ocene veće od 4, što ukazuje na visok kvalitet brenda Causalie, koji su dostupni ne samo na sajtu. Dodatno, izračunajte i analizirajte sledeće pokazatelje za svaki proizvod:
 - **Prosečna Ocena:** Reflektuje generalno korisničko zadovoljstvo.
 - **Ukupan Broj Recenzija:** Daje uvid u popularnost i pouzdanost ocena.
 - **Procenat Recenzija po Tipu Kože:** Omogućava razumevanje kako različiti tipovi kože reaguju na proizvod.
