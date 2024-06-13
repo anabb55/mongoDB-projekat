@@ -1,0 +1,102 @@
+db.getCollection("authors").aggregate(
+
+    [
+        // Stage 1
+        {
+            $match: { 
+                        skin_tone: "light", 
+                        skin_type: "dry" 
+                    }
+        },
+
+        // Stage 2
+        {
+            $lookup: {           from: "reviews",
+                        localField: "_id",
+                        foreignField: "author_id",
+                        as: "author_reviews"   
+            }
+        },
+
+        // Stage 3
+        {
+            $unwind: {
+                path: "$author_reviews"
+            }
+        },
+
+        // Stage 4
+        {
+            $match: { 
+                "author_reviews.rating": { $gt: 4 } 
+            }
+        },
+
+        // Stage 5
+        {
+            $lookup: {
+                        from: "feedbackStatistics",
+                        localField: "author_reviews._id",
+                        foreignField: "review_id",
+                        as: "review_feedback"
+            }
+        },
+
+        // Stage 6
+        {
+            $unwind: {
+                path: "$review_feedback"
+            }
+        },
+
+        // Stage 7
+        {
+            $match: {
+                $or: [
+                  { "review_feedback.helpfulness": 1 },
+                  { $expr: { $gt: ["$review_feedback.total_pos_feedback_count", "$review_feedback.total_neg_feedback_count"] } }
+                ]
+              }
+        },
+
+        // Stage 8
+        {
+            $project: {
+                        author_id: "$_id",
+                        skin_tone: 1,
+                        skin_type: 1,
+                        review_id: "$author_reviews._id",
+                        rating: "$author_reviews.rating",
+                        helpfulness: "$review_feedback.helpfulness",
+                        total_pos_feedback_count: "$review_feedback.total_pos_feedback_count"
+                        
+                    }
+        },
+
+        // Stage 9
+        {
+            $group: {
+                  _id: "$author_id",
+                  skin_tone: { $first: "$skin_tone" },
+                  skin_type: { $first: "$skin_type" },
+                  reviews: { 
+                    $push: { 
+                      review_id: "$review_id",
+                      rating: "$rating",
+                      total_pos_feedback_count: "$total_pos_feedback_count"
+                    } 
+                  },
+                  total_positive_feedback: { $sum: "$total_pos_feedback_count" }
+                }
+        },
+
+        // Stage 10
+        {
+            $sort: { 
+                            total_positive_feedback: -1 
+                        }
+        }
+    ],
+
+
+);

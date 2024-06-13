@@ -1,0 +1,89 @@
+db.getCollection("products").aggregate(
+
+    [
+        {
+            $match: { 
+                        "category.primary": "Skincare",
+                        "category.secondary": "Cleansers"
+            }
+        },
+
+        {
+            $lookup: {
+                        from: "reviews",
+                        localField: "_id",
+                        foreignField: "product_id",
+                        as: "product_reviews"
+                    }
+        },
+
+        {
+            $unwind: {
+                path: "$product_reviews"    
+            }
+        },
+
+        {
+            $match: {
+                "product_reviews.is_recommended":0
+            }
+        },
+
+        {
+            $lookup: {
+                        from: "authors",
+                        localField: "product_reviews.author_id",
+                        foreignField: "_id",
+                        as: "review_authors"
+                    }
+        },
+
+        {
+            $unwind: {
+                path: "$review_authors"
+            }
+        },
+
+        {
+            $match: { 
+                        "review_authors.skin_type": "oily"
+                    }
+        },
+
+        {
+            $group: {
+                    _id: "$_id",
+                    averageRating: { $avg: "$product_reviews.rating" },
+                    reviewsCount: { $sum: 1 },
+                    productName: { $first: "$product_name" }
+                }
+        },
+
+        {
+            $match: {
+                            averageRating: { $lt: 4 }
+                        }
+        },
+
+        {
+            $project: {
+                    _id: 1,
+                    productName: 1,
+                    averageRating: 1,
+                    reviewsCount: 1,
+                }
+        },
+
+        {
+            $sort: {
+                    reviewsCount: -1 // Sortiranje po prosečnoj oceni rastuće
+                }
+        }
+    ],
+
+    {
+
+    }
+
+
+);
