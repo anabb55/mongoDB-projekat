@@ -56,3 +56,112 @@ Kao odgovor na ove izazove, preduzeli smo nekoliko koraka za optimizaciju naše 
 
 Projekat će omogućiti dublji uvid u preferencije i ponašanje potrošača Sephore, identifikovati ključne faktore koji utiču na zadovoljstvo korisnika, i pomoći u optimizaciji asortimana proizvoda. Rezultati će biti ključni za strategije poboljšanja proizvoda i prilagođavanja ponude prema specifičnim potrebama i željama kupaca.
 
+### Zadatak 6: Analiza Proizvoda za Njegu Lica Brendiranih za Sephoru
+
+**Cilj Analize:**
+
+Cilj ove analize je identifikovati proizvode iz kategorije "Face Creams" koji su ekskluzivni za Sephoru, imaju visoku prosečnu ocenu (preko 4.5), dostupni su na sniženju, i nude varijacije po veličini. Dodatni uslov je da su ovi proizvodi preporučeni od strane korisnika, što dodatno potvrđuje njihov kvalitet i prihvaćenost na tržištu.
+
+### Detalji Analize:
+
+Analiza obuhvata sledeće korake:
+
+1. **Konverzija Cena:** Prvo se konvertuje prikazana cena iz tekstualnog formata u numerički, kako bi se omogućilo precizno upoređivanje i filtriranje cena.
+   
+2. **Filtriranje po Ocenama i Dostupnosti:** Proizvodi se filtriraju tako da su isključivo oni čija je ocena viša od 4.5, koji su ekskluzivni za Sephoru, i koji su na sniženju (tj. prodajna cena je niža od originalne).
+
+3. **Varijacije Proizvoda:** Pridružuju se informacije o varijacijama za svaki proizvod, sa posebnim fokusom na varijacije veličine, što je važno za kupce koji traže specifične količine ili pakovanja.
+
+4. **Pridruživanje Recenzija:** Analiziraju se recenzije koje su korisnici označili kao preporučene, što dodatno potvrđuje visok kvalitet i zadovoljstvo korisnika sa proizvodom.
+
+5. **Grupisanje i Izlistavanje Informacija:** Rezultati se grupišu po proizvodu, pri čemu se izlistavaju naziv proizvoda, snižena i originalna cena, varijacije, i detalji recenzija koje uključuju ocene.
+
+6. **Prezentacija Rezultata:** Finalni rezultati se projektuju kako bi jasno prikazali relevantne informacije o svakom proizvodu, uključujući cene, varijacije i ocene iz recenzija.
+
+### Zadatak 7: Analiza Najuticajnijih Recenzija
+
+**Cilj Analize:**
+
+Ova analiza ima za cilj da identifikuje 1000 najuticajnijih recenzija poslatih između 1. februara i 1. aprila 2023. godine. Da bi recenzija bila klasifikovana kao uticajna, ona mora biti označena kao korisna i mora imati najmanje 5 povratnih informacija. Pored identifikacije, analiza uključuje i izračunavanje procenta pozitivnih i negativnih povratnih informacija za svaku recenziju, što omogućava bolje razumevanje reakcija korisnika na proizvode.
+
+### Detalji Analize:
+
+1. **Vremenski Okvir:** Recenzije poslate između 1. februara i 1. aprila 2023.
+   
+2. **Kriterijumi za Uticajnost:** Recenzije moraju biti označene kao korisne i imati više od 5 povratnih informacija.
+
+3. **Izračunavanje Procenta Povratnih Informacija:** Za svaku recenziju izračunavaju se procenti pozitivnih i negativnih povratnih informacija kako bi se analiziralo kako korisnici percipiraju kvalitet proizvoda.
+
+4. **Rangiranje po Vremenu Slanja:** Recenzije se rangiraju na osnovu vremena slanja, počevši od najranije, što omogućava pregled trendova i promena u mišljenju korisnika tokom vremena.
+
+
+### Zaključak:
+
+Ovom analizom dobijamo jasan uvid u koje recenzije imaju najveći uticaj među potrošačima, što može poslužiti kao dragocen alat za unapređenje proizvoda i marketinških strategija. Identifikacija recenzija sa visokom ocenom korisnosti i značajnim brojem povratnih informacija pomaže u razumevanju šta korisnici cene kod proizvoda, a visoki procenti pozitivnih povratnih informacija mogu istaći proizvode koji su dobro prihvaćeni na tržištu.
+
+
+### Zadatak 8: Identifikacija Najuticajnijih Autora Recenzija na Osnovu Tipa Kože
+
+**Cilj Analize:**
+
+Cilj ove analize je identifikovati autore sa svetlim tonom kože i suvim tipom kože koji su napisali visoko ocenjene recenzije (ocena veća od 4). Analiza se fokusira na recenzije koje su korisnici označili kao korisne i koje imaju više pozitivnih nego negativnih povratnih informacija. Krajnji cilj je prikazati autore čije recenzije dobijaju najviše pozitivnih povratnih informacija, kako bi se prepoznali oni koji ostavljaju najuticajnije i najkorisnije recenzije.
+
+### Detalji Analize:
+
+1. **Selekcija Autora:** Identifikacija autora sa 'light' tonom kože i 'dry' tipom kože.
+
+2. **Pridruživanje i Analiza Recenzija:** Pridruživanje recenzija ovim autorima i filtriranje recenzija sa ocenama većim od 4.
+
+3. **Pridruživanje Povratnih Informacija:** Analiza povratnih informacija za svaku recenziju kako bi se osiguralo da su označene kao korisne i da imaju više pozitivnih nego negativnih povratnih informacija.
+
+4. **Kvantifikacija Uticaja:** Izračunavanje ukupnog broja pozitivnih povratnih informacija koje su recenzije svakog autora primile.
+
+5. **Rangiranje Autora:** Sortiranje autora prema ukupnom broju pozitivnih povratnih informacija kako bi se identifikovali oni koji ostavljaju najkvalitetnije recenzije.
+
+
+### Zaključak:
+
+Rezultati ove analize pružaju dragocene uvide u to koji autori konzistentno pišu uticajne i korisne recenzije za proizvode koji su popularni među korisnicima sa svetlim tonom kože i suvim tipom kože. Ovo može pomoći u ciljanom marketingu i razvoju proizvoda koji će najbolje odgovarati potrebama ove demografske grupe.
+
+### Zadatak 9: Analiza Proizvoda za Njegu Kože sa Negativnim Recenzijama
+
+**Cilj Analize:**
+
+Cilj ove analize je da identifikuje proizvode iz kategorija 'Skincare' i 'Cleansers' koji su primili negativne preporuke od korisnika sa masnom kožom. Fokus je na proizvodima čija je srednja vrednost ocena ispod 4, što ukazuje da se generalno ne smatraju dovoljno dobrim. Ova analiza će pomoći u identifikovanju proizvoda koji možda zahtevaju poboljšanja ili posebnu pažnju u razvoju i marketingu.
+
+### Detalji Analize:
+
+- **Selekcija Proizvoda:** Izdvajanje proizvoda koji spadaju u kategorije 'Skincare' i 'Cleansers'.
+- **Pridruživanje Recenzija:** Povezivanje ovih proizvoda sa recenzijama koje su ostavili korisnici.
+- **Filtriranje po Preporukama:** Fokusiranje na recenzije koje nisu preporučene od strane korisnika.
+- **Analiza Tipa Kože:** Dalje filtriranje recenzija kako bi se osiguralo da potiču od korisnika sa masnom kožom.
+- **Izračunavanje Prosečne Ocene:** Proizvodi se grupišu po identifikatoru, pri čemu se izračunava srednja vrednost ocena za svaki proizvod.
+- **Selekcija Proizvoda sa Niskim Ocenama:** Izdvajanje proizvoda čija je prosečna ocena ispod 4.
+- **Sortiranje po Relevanciji:** Proizvodi se rangiraju prema ukupnom broju recenzija, sa onima koji imaju najviše recenzija na vrhu liste, što ukazuje na njihovu veću tržišnu relevantnost.
+### Zaključak:
+
+Rezultati ove analize pružiće vredne uvide u performanse određenih proizvoda u realnim uslovima korišćenja. Identifikovanje proizvoda sa niskim prosečnim ocenama i negativnim recenzijama od specifičnih korisnika omogućiće Sephori da preispita i potencijalno unapredi formulacije ili pristupe marketinškim strategijama za ove proizvode. Ovo će, nadalje, doprineti poboljšanju zadovoljstva korisnika i jačanju brenda na tržištu.
+
+
+### Zadatak 10: Analiza Kvalitetnih Proizvoda po Povoljnim Cenama
+
+**Cilj Analize:**
+
+Istražite asortiman proizvoda koji spajaju visoku ocenu korisničkog zadovoljstva s pristupačnošću. Fokusirajte se na proizvode čija se cena kreće u opsegu od 30 do 60 dolara i koji imaju ocene veće od 4, što ukazuje na visok kvalitet. Dodatno, izračunajte i analizirajte sledeće pokazatelje za svaki proizvod:
+- **Prosečna Ocena:** Reflektuje generalno korisničko zadovoljstvo.
+- **Ukupan Broj Recenzija:** Daje uvid u popularnost i pouzdanost ocena.
+- **Procenat Recenzija po Tipu Kože:** Omogućava razumevanje kako različiti tipovi kože reaguju na proizvod.
+
+**Konačni Korak:**
+Sortirajte dobijene rezultate po ceni, od najniže ka najvišoj, kako bi se omogućilo lakše identifikovanje najisplativijih opcija.
+
+### Zakljucak:
+
+Ovaj detaljan pristup omogućava ne samo identifikaciju proizvoda koji nude najbolji odnos cene i kvaliteta, već i dublje razumevanje preferencija potrošača zasnovano na tipu kože, čime se olakšava ciljano pozicioniranje proizvoda na tržištu.
+
+
+
+
+
+
+
