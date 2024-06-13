@@ -1,0 +1,115 @@
+db.getCollection("products").aggregate(
+
+      [
+        {
+            $addFields: {sale_price_usd_num: {
+                    $cond: {
+                      if: { $regexMatch: { input: "$sale_price", regex: /^[0-9]+$/ } },  // Proverava da li je niz ceo broj
+                      then: { $toInt: "$sale_price" },
+                      else: { $round: [{ $toDouble: "$sale_price" }, 0] }  // Zaokružuje decimalni broj na ceo broj
+                    }
+                  }
+             }
+        },
+
+        {
+            $addFields: {rating_num: {
+                    $cond: {
+                      if: { $regexMatch: { input: "$rating", regex: /^[0-9]+$/ } },  // Proverava da li je niz ceo broj
+                      then: { $toInt: "$rating" },
+                      else: { $round: [{ $toDouble: "$rating" }, 0] }  // Zaokružuje decimalni broj na ceo broj
+                    }
+                  }
+             }
+        },
+
+        {
+            $addFields: {price_usd_num: {
+                    $cond: {
+                      if: { $regexMatch: { input: "$price", regex: /^[0-9]+$/ } },  // Proverava da li je niz ceo broj
+                      then: { $toInt: "$price" },
+                      else: { $round: [{ $toDouble: "$price" }, 0] }  // Zaokružuje decimalni broj na ceo broj
+                    }
+                  }
+             }
+        },
+
+        {
+            $match: {
+              rating_num: { $gt: 4.5 }, 
+              sephora_exclusive: true ,
+              $expr: { $lt: ["$sale_price_usd_num", "$price_usd_num"]}
+            }
+        },
+
+        {
+            $lookup: {
+                  from: "variations",
+                  localField: "_id",
+                  foreignField: "product_id",
+                  as: "product_variations"
+            }
+        },
+
+        {
+            $unwind: {
+                path: "$product_variations" 
+            }
+        },
+
+        {
+            $match: {
+             
+                  "product_variations.variation_type": "Size"
+            }
+        },
+
+        {
+            $lookup: {
+                  from: "reviews",
+                  localField: "_id",
+                  foreignField: "product_id",
+                  as: "product_reviews"
+            }
+        },
+
+        {
+            $unwind: {
+                path: "$product_reviews"
+            }
+        },
+
+        {
+            $match: {
+                  "product_reviews.is_recommended": 1.0
+            }
+        },
+
+        {
+            $group: {
+                  _id: "$_id",
+                  product_name: { $first: "$product_name" },
+                  sale_price_usd: { $first: "$sale_price_usd_num" },
+                  original_price_usd: { $first: "$price_usd_num" },
+                  variations: { $addToSet: "$product_variations" },
+                  reviews: {
+                    $push: {
+                      review_id: "$product_reviews._id",
+                      rating: "$product_reviews.rating",
+                    }
+                  }
+            }
+        },
+
+        {
+            $project: {
+                  product_name: 1,
+                  sale_price_usd: 1,
+                  original_price_usd: 1,
+                  variations: 1,
+                  reviews: 1
+            }
+        }
+    ],
+
+);
