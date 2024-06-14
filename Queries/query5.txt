@@ -2,7 +2,8 @@ db.getCollection("authors").aggregate(
     [
         {
             "$match" : {
-                "eye_color" : "brown"
+                "eye_color" : "blue",
+                "hair_color": "blonde"
             }
         }, 
 
@@ -28,6 +29,7 @@ db.getCollection("authors").aggregate(
             "$addFields" : {
                 "review_ID" : "$reviews._id",
                 "review_text" : "$reviews.review_text"
+                "rating"  : "$reviews.rating"
             }
         }, 
 
@@ -37,7 +39,8 @@ db.getCollection("authors").aggregate(
                 "_id" : NumberInt(1),
                 "eye_color" : NumberInt(1),
                 "review_ID" : NumberInt(1),
-                "review_text" : NumberInt(1)
+                "review_text" : NumberInt(1),
+                "rating" : NumberInt(1)
             }
         }, 
 
@@ -76,19 +79,30 @@ db.getCollection("authors").aggregate(
 
         {
             "$match" : {
-                "total_feedback_count" : {
-                    "$gt" : NumberInt(5)
+                    "$and": [
+            {
+                "total_feedback_count": {
+                    "$gt": 5
                 }
+            },
+            {
+                "$or": [
+                    { "rating": 1 },
+                    { "rating": 2 }
+                ]
+            }
+    ]
             }
         }, 
 
         
         {
             "$project" : {
-                "_id" : NumberInt(0),
+                "_id" : NumberInt(1),
                 "eye_color" : NumberInt(1),
                 "review_text" : NumberInt(1),
-                "total_feedback_count" : NumberInt(1)
+                "total_feedback_count" : NumberInt(1),
+                "rating": NumberInt(1)
             }
         }
     ], 

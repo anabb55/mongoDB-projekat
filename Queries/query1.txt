@@ -1,11 +1,11 @@
 
 //celi upit kada pridruzujemo i autora kako bismo nasli tip koze autora 
 
-db.reviews.aggregate([
+db.reviews1.aggregate([
     
     {
         $lookup: {
-            from: "products",
+            from: "products1",
             localField: "product_id",
             foreignField: "_id",
             as: "product_info"

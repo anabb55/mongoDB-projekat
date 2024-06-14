@@ -1,0 +1,73 @@
+--Optimizacija je izvrsena tako sto je upotrebljen sablon prosirene reference gde je feedbackStatistics sada deo reviews kolekcije.
+ Pored tiga dodat je indeks na author_id unutar kolekcije reviews_final. Filtriranje na samom pocetku je takodje pomoglo pri optimizaciji--
+
+db.getCollection("authors").aggregate([
+  {
+    "$match": {
+      "eye_color": "blue",
+      "hair_color": "blonde"
+    }
+  },
+
+
+  {
+    "$lookup": {
+      "from": "reviews_final",
+      "localField": "_id",
+      "foreignField": "author_id",
+      "as": "reviews"
+    }
+  },
+
+
+  {
+    "$unwind": {
+      "path": "$reviews"
+    }
+  },
+
+
+  {
+    "$project": {
+      "_id": 1,
+      "eye_color": 1,
+      "reviews.review_text": 1,
+      "reviews.rating": 1,
+      "total_feedback_count": "$reviews.feedbackStatistic.total_feedback_count"
+    }
+  },
+
+
+  {
+    "$match": {
+      "$and": [
+        {
+          "total_feedback_count": {
+            "$gt": 5
+          }
+        },
+        {
+          "$or": [
+            {
+              "reviews.rating": 1
+            },
+            {
+              "reviews.rating": 2
+            }
+          ]
+        }
+      ]
+    }
+  },
+
+
+  {
+    "$project": {
+      "_id": 1,
+      "eye_color": 1,
+      "review_text": "$reviews.review_text",
+      "rating": "$reviews.rating",
+      "total_feedback_count": 1
+    }
+  }
+]);
