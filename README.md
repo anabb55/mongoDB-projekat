@@ -152,7 +152,7 @@ Konačno, proizvodi se rangiraju u opadajućem redosledu prema ukupnom broju neg
 
 
 ### Zadatak 6: Analiza Proizvoda za Njegu Lica Brendiranih za Sephoru
-[Upit pre optimizacije]([URL link](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query6.txt))
+([Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query6.txt))| ([Upit nakon optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query6Opt.txt))
 
 
 **Cilj Analize:**
