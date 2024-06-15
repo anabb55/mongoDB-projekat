@@ -110,11 +110,45 @@ Na kraju se računa udeo komentara koje su ostavili korisnici sa "dry" tipom ko�
 ![query1Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/48ef4191-955a-4bf0-b0f4-5c53f97c5ee5)     ![query11Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/0cfd21cd-82ef-4d89-bdda-7358b6c14142)
 
 
+
 ### Zadatak 2: Rangiranje proizvoda koji se prodaju samo online po negativnim feedback-ovima na njihove komentare
 
 **Cilj Analize:**
 
 Cilj  analize je rangiranje proizvoda koji se isključivo prodaju online i koji su ocenjeni u periodu od 01.01.2018. do 01.01.2023. prema broju negativnih feedback-ova na komentare koje se odnose na njih. Za svaki proizvod je potrebno prikazati naziv proizvoda, naziv brenda, primarnu kategoriju i broj negativnih komentara. Komentari se prate dugoročno(period od 5 godina) kako bi se uočila neka pravilnost.
+
+### Detalji Analize:
+
+1. **Filtriranje Proizvoda koji se Prodaju Samo Online:**
+Proizvodi se filtriraju kako bi se identifikovali samo oni koji su dostupni isključivo putem online prodaje.
+
+2. **Spajanje sa Komentarima:**
+Komentari koje su korisnici ostavili za proizvode se spajaju sa odgovarajućim proizvodima koristeći identifikator proizvoda (product_id).
+
+3. **Filtriranje po Datumu Ocene:**
+Nakon spajanja, komentari se dodatno filtriraju kako bi se obuhvatili samo oni koji su ostavljeni u definisanom vremenskom periodu (od 1. januara 2018. do 1. januara 2023.). Ovo ograničenje datuma je ključno za fokusiranje analize na relevantne podatke.
+
+4. **Grupisanje i Agregacija Podataka:**
+Komentari se grupišu po svakom proizvodu radi izračunavanja ukupnog broja negativnih feedback-ova (total_neg_feedback_count) i ukupnog broja komentara (review_count). Ove agregirane informacije pružaju statistički pregled zadovoljstva korisnika i potencijalnih problema sa proizvodima.
+
+5. **Rangiranje Proizvoda:**
+Konačno, proizvodi se rangiraju u opadajućem redosledu prema ukupnom broju negativnih feedback-ova. Ovo rangiranje pomaže u identifikaciji proizvoda koji možda imaju najviše problema ili nezadovoljstva među korisnicima, što može biti pokazatelj potrebe za poboljšanjima ili dodatnim istraživanjem.
+
+**Explain plan pre optimizacije:**
+
+![query2-initial](https://github.com/anabb55/mongoDB-projekat/assets/75089113/02201a51-ca8e-433f-bcf9-134f71348382)
+
+**Explain plan nakon optimizacije:**
+
+![query2-optimized](https://github.com/anabb55/mongoDB-projekat/assets/75089113/d28725ed-4e47-4e22-a185-bfdedc2e678a)
+
+**Grafički prikaz rezultata uz pomoć alata Metabase:**
+
+![query2Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/ccd98c28-6a72-4289-b332-0484a3bf78e5)
+
+![query22Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/b9b6aa94-e2ab-4118-85b8-7668eb63cdb1)
+
+
 
 
 ### Zadatak 6: Analiza Proizvoda za Njegu Lica Brendiranih za Sephoru
