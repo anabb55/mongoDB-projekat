@@ -251,6 +251,51 @@ Prilikom refaktorisanja šeme baze podataka, pažljivo su postavljeni odgovaraju
 ![query4Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/ad74839a-7d56-437a-bb59-b3f9c472b11e)
 
 
+### Zadatak 5: Analiza Negativnih Komentara sa Niskim Ocjenama
+[Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query5.txt) | [upit nakon optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query5-optimized.txt)
+
+**Cilj Analize:**
+Cilj ove analize je identifikovati sve komentare u kojima su proizvodi jako nisko ocenjeni (rating 1 ili 2), a koje su ostavili korisnici sa plavim očima i plavom kosom. Dodatni fokus je na prikazu ukupnog broja feedback-ova po svakom komentaru, kako bi se razumela reakcija korisnika na negativne komentare i niske ocene proizvoda.
+
+
+### Detalji Analize:
+
+Analiza obuhvata sledeće korake:
+
+1. **Filtriranje Autora:** Počinjemo filtriranjem autora koji imaju plave oči i plavu kosu.
+
+2. **Spajanje sa Recenzijama:** Spajamo informacije o autorima sa njihovim recenzijama.
+
+3.**Projekcija Rezultata:** Izdvajamo relevantne informacije kao što su tekst recenzije, ocjena i broj feedback-ova.
+
+4. **Filtriranje Recenzija:** Biramo recenzije sa ocenama 1 ili 2 i koje su primile više od 5 feedback-ova.
+
+5. **Konačni Prikaz:** Prikazujemo tekst recenzije i ukupan broj feedback-ova za svaku odabrane recenzije.
+
+**Optimizacija je postignuta uz pomoć narednih koraka:**
+
+1. **Upotreba Šablona Proširene Reference:**
+Uvedena je šablonska proširena referenca za objedinjavanje feedback statistike unutar svake recenzije u kolekciji reviews_final. Ovo je eliminisalo potrebu za dodatnim spajanjem sa kolekcijom feedbackStatistics, čime je smanjen broj operacija u agregacionom upitu i poboljšana efikasnost.
+
+2. **Indeks na author_id u reviews_final:**
+Dodavanjem indeksa na polje author_id unutar kolekcije reviews_final omogućeno je brže pronalaženje recenzija koje pripadaju određenom autoru.
+
+ ```javascript
+   db.reviews_final.createIndex({ author_id: 1 });
+   ```
+
+3. **Filtriranje na Početku Agregacionog Upita:**
+Upit je optimizovan filtriranjem podataka na samom početku, što znači da su nepotrebni dokumenti isključeni iz daljeg procesiranja odmah na početku upita.
+
+**Explain plan pre optimizacije**
+![query5-2-initial](https://github.com/anabb55/mongoDB-projekat/assets/75089113/1f2f8151-9c23-405e-bc18-c70e6c4c4973)
+
+**Explain plan nakon optimizacije**
+![query5-optimized](https://github.com/anabb55/mongoDB-projekat/assets/75089113/e18eb701-e2f9-4d15-9a50-3285128679db)
+
+**Rezultati**
+![query5Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/b8bf5f69-ecb3-44a5-bdc2-3265fdd503af)
+
 
 
 
