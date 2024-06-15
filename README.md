@@ -294,6 +294,7 @@ Upit je optimizovan filtriranjem podataka na samom početku, što znači da su n
 ![query5-optimized](https://github.com/anabb55/mongoDB-projekat/assets/75089113/e18eb701-e2f9-4d15-9a50-3285128679db)
 
 **Rezultati**
+
 ![query5Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/b8bf5f69-ecb3-44a5-bdc2-3265fdd503af)
 
 
@@ -531,6 +532,12 @@ Upit traje predugo zbog velike količine podataka!
 
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/1cb12eb0-df30-464b-a164-13cf415b9bec)
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/15297a12-bf57-43ac-88b9-048ac0911fb6)
+
+
+**Vremenska razlika u izvršavanju upita**
+
+![time_difference](https://github.com/anabb55/mongoDB-projekat/assets/75089113/93a1f744-db82-4ff6-ac43-d248a561a6ee)
+
 
 
 
