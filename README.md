@@ -207,6 +207,22 @@ Ova analiza ima za cilj da identifikuje 1000 najuticajnijih recenzija poslatih i
 
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/d49d0c92-0537-4f9b-bc94-8d8410e2ade4)
 
+U nedavnom slučaju optimizacije, primetili smo da je dodavanje indeksa značajno poboljšalo performanse upita. Konkretno, dva ključna koraka su dovela do značajnog smanjenja vremena izvršavanja upita na samo 90 ms:
+
+1. **Indeksi na Stranim Ključevima**: 
+   - Dodavanje indeksa na polja koja se koriste za `lookup` operacije, kao što su strani ključevi, omogućava brže povezivanje podataka između kolekcija.
+   - Ovo optimizuje operacije spajanja (joins) koje su često glavni faktor usporavanja upita u MongoDB-u.
+
+2. **Indeks na Polju `submission_time`**:
+   - Kreiranje indeksa na polju `submission_time` dodatno je poboljšalo performanse upita. 
+   - Pošto je ovo polje često korišćeno u filtriranju rezultata prema vremenskom okviru, indeksiranje omogućava brže pretraživanje i sortiranje podataka na osnovu vremenskih kriterijuma.
+
+Kombinacijom ovih optimizacija, vreme izvršavanja upita je smanjeno sa potencijalno visokih vrednosti na samo 90 ms, čineći upite efikasnijim i bržim.
+
+---
+
+Ova reformulacija ističe ključne korake u optimizaciji upita i koristi primer za ilustraciju značaja indeksiranja u MongoDB-u.
+
 **Metabase grafici**
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/599e2d61-3f5d-4d04-8d64-d58d6464f4ee)
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/166dd849-8f8a-4cda-8a6a-3b553a7e0181)
