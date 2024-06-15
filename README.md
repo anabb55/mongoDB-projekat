@@ -98,8 +98,19 @@ Komentari se ponovo grupišu kako bi se izračunao ukupan broj komentara (total_
 
 Na kraju se računa udeo komentara koje su ostavili korisnici sa "dry" tipom kože u odnosu na ukupan broj komentara. Ako nema komentara, udeo se postavlja na 0 kako bi se izbegla greška deljenja sa nulom.
 
+**Optimizacija je postignuta uz pomoć narednih koraka:**
+
+1. **Filtriranje podataka pre spajanja:**
+Upit je optimizovan tako što je prvo izvršeno filtriranje proizvoda koji se prodaju samo online, smanjujući količinu podataka koji se dalje obrađuju. Ovo unapred filtriranje omogućava da se u kasnijim fazama upita radi sa manjim skupom podataka, što ubrzava celokupan proces. Promena redosleda oepracija u agregacionom pipeline-u dovodi do ynatno bržeg izvršavanja upita
+
+2. **Indeks na Stranom Ključu product_id u Recenzijama:**
+Dodavanje indeksa na polje product_id u kolekciji reviews_final značajno ubrzava operacije spajanja (joins) između proizvoda i njihovih recenzija. Indeks na stranom kljucu omogućava da se brzo pronađu i spoje relevantni dokumenti, čime se drastično smanjuje vreme pretrage i povećava efikasnost upita.
+
+```javascript
+   db.reviews_final.createIndex({ product_id: 1 });
+   ```
+
   **Explain plan pre optimizacije:**
-  
   
 ![query1-initial](https://github.com/anabb55/mongoDB-projekat/assets/75089113/f0c582b1-ee04-45d1-af6f-357ea32e4ff5)
 
@@ -114,6 +125,7 @@ Na kraju se računa udeo komentara koje su ostavili korisnici sa "dry" tipom ko�
 
 
 ### Zadatak 2: Rangiranje proizvoda koji se prodaju samo online po negativnim feedback-ovima na njihove komentare
+[Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query2.txt) | [Upit nakon optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query2-optimized.txt)
 
 **Cilj Analize:**
 
@@ -135,6 +147,14 @@ Komentari se grupišu po svakom proizvodu radi izračunavanja ukupnog broja nega
 
 5. **Rangiranje Proizvoda:**
 Konačno, proizvodi se rangiraju u opadajućem redosledu prema ukupnom broju negativnih feedback-ova. Ovo rangiranje pomaže u identifikaciji proizvoda koji možda imaju najviše problema ili nezadovoljstva među korisnicima, što može biti pokazatelj potrebe za poboljšanjima ili dodatnim istraživanjem.
+
+**Optimizacija je postignuta uz pomoć narednih koraka:**
+
+1. **Uvođenje Šablona Proširene Reference i Eliminisanje Lookupa:**
+Prethodno su FeedbackStatistics bili smešteni u zasebnoj kolekciji, što je zahtevalo dodatni lookup prilikom spajanja podataka. Uvođenjem šablona proširene reference, FeedbackStatistics su sada integrisani direktno unutar dokumenata recenzija. Ova promena eliminiše potrebu za dodatnim lookup operacijama, smanjujući složenost upita i ubrzavajući izvršavanje.FeedbackStatistics prirodno pripadaju recenzijama, čineći strukturu podataka logičnijom i koherentnijom.
+
+2. **Indeks na Stranom Ključu product_id u Recenzijama:**
+Kao i u prethodnom upitu imamo indeks na stranom ključu. Dodavanje indeksa na polje product_id u kolekciji reviews_final značajno ubrzava operacije spajanja (joins) između proizvoda i njihovih recenzija. Indeks na stranom kljucu omogućava da se brzo pronađu i spoje relevantni dokumenti, čime se drastično smanjuje vreme pretrage i povećava efikasnost upita.
 
 **Explain plan pre optimizacije:**
 
