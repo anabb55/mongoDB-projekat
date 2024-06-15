@@ -45,11 +45,11 @@ Kao odgovor na ove izazove, preduzeli smo nekoliko koraka za optimizaciju naše 
 2. **Integracija Tabela Variations u Products:**
    - Varijacije proizvoda, kao što su veličine i boje, ranije su skladištene kao zasebne kolekcije. Integracijom ovih podataka direktno u dokumente proizvoda, eliminisana je potreba za pridruživanjem podataka prilikom upita, što rezultira bržim vremenima odgovora.
 
-3. **Odvojivanje Autora iz Recenzija:**
+3. **Izdvajanje Autora iz Recenzija:**
    - Autori recenzija, koji su ranije bili ugrađeni direktno u dokumente recenzija, izdvojeni su u zasebnu kolekciju. Ovo odvajanje omogućava efikasnije upravljanje autorima i njihovim profilima, kao i bolju skalabilnost prilikom ažuriranja podataka o autorima.
 
 4. **Implementacija Indeksa:**
-   - Uvedeni su indeksi na ključne kolone koje se često koriste u upitima, kao što su ID proizvoda, ID autora recenzija, i datum slanja recenzije,kao i kombinovani indek (skin_type . Ovo je drastično poboljšalo performanse upita, smanjujući vreme potrebno za pretragu i sortiranje podataka.
+   - Uvedeni su indeksi na ključne kolone koje se često koriste u upitima, kao što su ID proizvoda, ID autora recenzija, i datum slanja recenzije,kao i kombinovani indeks(skin_type,skin_tone) . Ovo je drastično poboljšalo performanse upita, smanjujući vreme potrebno za pretragu i sortiranje podataka.
    - Posebna pažnja je posvećena indeksiranju polja koja učestvuju u operacijama pridruživanja i filtriranja, što je rezultiralo znatno bržim vremenima odziva prilikom izvršavanja složenih analitičkih upita.
    - ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/9eece655-d738-4861-9f53-ed8a20166eaa)
 
