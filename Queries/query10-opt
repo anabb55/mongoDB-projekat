@@ -1,89 +1,194 @@
-db.getCollection("authors").aggregate(
+db.getCollection("products_final").aggregate(
 
     // Pipeline
     [
         // Stage 1
         {
-            $match: { 
-                                    skin_tone: "light", 
-                                    skin_type: "dry" 
-            }
+            $match: {
+                              price: { $gte: 30, $lte: 60 }   ,     // Proizvodi sa originalnom cenom između 30 i 60 dolara
+                            
+                        }
         },
 
         // Stage 2
         {
-            $project: {
-                            _id: 1, // Zadržavamo _id jer je potreban za $lookup
-                            skin_tone: 1,
-                            skin_type: 1
+            $lookup: {
+                            from: "reviews_final",
+                            localField: "_id",
+                            foreignField: "product_id",
+                            as: "product_reviews"
                         }
         },
 
         // Stage 3
         {
-            $lookup: {           from: "reviews_final",
-                        localField: "_id",
-                        foreignField: "author_id",
-                        as: "author_reviews"   
-            }
+            $unwind: {
+                            path: "$product_reviews"
+                        }
         },
 
         // Stage 4
         {
-            $unwind: {
-                path: "$author_reviews"
-            }
+            $match: {
+                            "product_reviews.rating": { $gte: 4 },
+                            "brand.brand_name": "Caudalie"            
+                        }
         },
 
         // Stage 5
         {
-            $match: { 
-                "author_reviews.rating": { $gt: 4 } ,
-                $or: [
-                { "author_reviews.feedbackStatistic.helpfulness": 1 },
-                { $expr: { $gt: ["$author_reviews.feedbackStatistic.total_pos_feedback_count", "$author_reviews.feedbackStatistic.total_neg_feedback_count"] } }
-              ]
-                
-            }
+            $lookup: {
+                            from: "authors",
+                            localField: "product_reviews.author_id",
+                            foreignField: "_id",
+                            as: "author_details"
+                        }
         },
 
         // Stage 6
         {
-            $project: {
-                author_id: "$_id",
-                skin_tone: 1,
-                skin_type: 1,
-                review_id: "$author_reviews._id",
-                rating: "$author_reviews.rating",
-                helpfulness: "$author_reviews.feedbackStatistic.helpfulness",
-                total_pos_feedback_count: "$author_reviews.feedbackStatistic.total_pos_feedback_count"
-                
+            $unwind: {
+                path: "$author_details"
             }
         },
 
         // Stage 7
         {
             $group: {
-              _id: "$author_id",
-              skin_tone: { $first: "$skin_tone" },
-              skin_type: { $first: "$skin_type" },
-              reviews: { 
-                $push: { 
-                  review_id: "$review_id",
-                  rating: "$rating",
-                  total_pos_feedback_count: "$total_pos_feedback_count"
-                } 
-              },
-              total_positive_feedback: { $sum: "$total_pos_feedback_count" }
-            }
+                            _id: {
+                                productId: "$_id",
+                                productName: "$product_name",
+                                price: "$price",  // Include the price
+                                skinType: "$author_details.skin_type"
+                            },
+                            totalReviewsBySkinType: { $sum: 1 },  // Count of reviews per skin type
+                            averageRating: { $avg: "$product_reviews.rating" }  // Average rating
+                        }
         },
 
         // Stage 8
         {
-            $sort: { 
-                total_positive_feedback: -1 
+            $group: {
+                            _id: "$_id.productId",
+                            productName: { $first: "$_id.productName" },
+                            price: {$first:"$_id.price"},  // Include the price
+                            averageRating: { $avg: "$averageRating" },
+                            totalReviews: { $sum: "$totalReviewsBySkinType" },  // Total reviews for each product
+                            reviewsBySkinType: {
+                                $push: {
+                                    skinType: "$_id.skinType",
+                                    count: "$totalReviewsBySkinType"
+                                }
+                            }
+                        }
+        },
+
+        // Stage 9
+        {
+            $addFields: {
+                dryPercentage: {
+                    $let: {
+                        vars: {
+                            dryCount: {
+                                $reduce: {
+                                    input: "$reviewsBySkinType",
+                                    initialValue: 0,
+                                    in: {
+                                        $cond: [
+                                            { $eq: ["$$this.skinType", "dry"] },
+                                            { $add: ["$$value", "$$this.count"] },
+                                            "$$value"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        in: {
+                            $multiply: [
+                                { $divide: ["$$dryCount", "$totalReviews"] },
+                                100
+                            ]
+                        }
+                    }
+                },
+                oilyPercentage: {
+                    $let: {
+                        vars: {
+                            oilyCount: {
+                                $reduce: {
+                                    input: "$reviewsBySkinType",
+                                    initialValue: 0,
+                                    in: {
+                                        $cond: [
+                                            { $eq: ["$$this.skinType", "oily"] },
+                                            { $add: ["$$value", "$$this.count"] },
+                                            "$$value"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        in: {
+                            $multiply: [
+                                { $divide: ["$$oilyCount", "$totalReviews"] },
+                                100
+                            ]
+                        }
+                    }
+                },
+                combinationPercentage: {
+                    $let: {
+                        vars: {
+                            combinationCount: {
+                                $reduce: {
+                                    input: "$reviewsBySkinType",
+                                    initialValue: 0,
+                                    in: {
+                                        $cond: [
+                                            { $eq: ["$$this.skinType", "combination"] },
+                                            { $add: ["$$value", "$$this.count"] },
+                                            "$$value"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        in: {
+                            $multiply: [
+                                { $divide: ["$$combinationCount", "$totalReviews"] },
+                                100
+                            ]
+                        }
+                    }
+                }
             }
+        },
+
+        // Stage 10
+        {
+            $project: {
+                            _id: 0,
+                            productName: 1,
+                            averageRating: 1,
+                            totalReviews: 1,
+                            price: 1,  // Include the price
+                            dryPercentage: 1,
+                            oilyPercentage: 1,
+                            combinationPercentage: 1
+                        }
+        },
+
+        // Stage 11
+        {
+            $sort: { price: 1 }
         }
     ],
+
+    // Options
+    {
+
+    }
+
+    // Created with Studio 3T, the IDE for MongoDB - https://studio3t.com/
 
 );
