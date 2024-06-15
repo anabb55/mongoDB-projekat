@@ -76,7 +76,9 @@ Analiza obuhvata sledeće korake:
 
 5. **Grupisanje i Izlistavanje Informacija:** Rezultati se grupišu po proizvodu, pri čemu se izlistavaju naziv proizvoda, snižena i originalna cena, varijacije, i detalji recenzija koje uključuju ocene.
 
-6. **Prezentacija Rezultata:** Finalni rezultati se projektuju kako bi jasno prikazali relevantne informacije o svakom proizvodu, uključujući cene, varijacije i ocene iz recenzija.
+6. **Prezentacija Rezultata:** :
+   ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/bbdae4ac-62e7-4ff4-9ab1-c590f92124b6)
+
 
 ### Zadatak 7: Analiza Najuticajnijih Recenzija
 
