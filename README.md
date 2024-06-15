@@ -53,11 +53,11 @@ Kao odgovor na ove izazove, preduzeli smo nekoliko koraka za optimizaciju naše 
    - Posebna pažnja je posvećena indeksiranju polja koja učestvuju u operacijama pridruživanja i filtriranja, što je rezultiralo znatno bržim vremenima odziva prilikom izvršavanja složenih analitičkih upita.
    - ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/9eece655-d738-4861-9f53-ed8a20166eaa)
 
-
-
 #### Očekivani Rezultati
 
 Projekat će omogućiti dublji uvid u preferencije i ponašanje potrošača Sephore, identifikovati ključne faktore koji utiču na zadovoljstvo korisnika, i pomoći u optimizaciji asortimana proizvoda. Rezultati će biti ključni za strategije poboljšanja proizvoda i prilagođavanja ponude prema specifičnim potrebama i željama kupaca.
+
+
 
 ### Zadatak 1: Analiza udela komentara za proizvode u kategoriji "Treatments"
 
@@ -169,6 +169,49 @@ Kao i u prethodnom upitu imamo indeks na stranom ključu. Dodavanje indeksa na p
 ![query2Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/ccd98c28-6a72-4289-b332-0484a3bf78e5)
 
 ![query22Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/b9b6aa94-e2ab-4118-85b8-7668eb63cdb1)
+
+
+### Zadatak 3: Identifikacija Vodećih Brendova za Cleansers Proizvode kod Osoba sa Normalnom Kožom
+[Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query3.txt) | [Upit nakon optimizacije] (https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query3-optimized.txt)
+
+**Cilj Analize:**
+Cilj ove analize je identifikovati 10 brendova koji imaju najviše komentara od korisnika sa normalnim tipom kože za proizvode iz sekundarne kategorije "Cleansers". Pored toga, potrebno je izračunati broj proizvoda iz kategorije "Cleansers" koji pripadaju svakom brendu, kao i ukupni broj komentara za te proizvode. Ova analiza pruža uvid u popularnost proizvoda određenih brendova među korisnicima sa normalnim tipom kože.
+
+### Detalji Analize:
+
+Analiza obuhvata sledeće korake:
+
+1. **Filtriranje po Kategoriji Proizvoda:** Prvo se vrši filtriranje proizvoda koji pripadaju sekundarnoj kategoriji "Cleansers".
+
+2. **Spajanje sa Komentarima:** Komentari iz kolekcije reviews_final se spajaju sa odgovarajućim proizvodima koristeći product_id.
+
+3. **Filtriranje po Tipu Kože:** Samo komentari korisnika sa "normal" tipom kože se uzimaju u obzir.
+
+4. **Grupisanje po Brendovima:** Komentari se grupišu po brand_id kako bi se izračunao ukupan broj komentara za Cleansers proizvode svakog brenda.
+
+5. **Sortiranje i Limitiranje Rezultata:** Brendovi se sortiraju po ukupnom broju komentara u opadajućem redosledu, prikazujući samo top 10 brendova.
+
+**Optimizacija je postignuta uz pomoć narednih koraka:**
+
+1. **Efikasnije korišćenje polja u agregaciji:**
+ U optimizovanom upitu se koriste samo neophodna polja za grupisanje i projekciju, dok prethodni upit koristi veći broj polja u dodavanju novih polja ($addFields) i projekciji, što može povećati složenost i vreme izvršavanja.
+
+2. **Uklanjanje nepotrebnih projekcija:**
+ Optimizovani upit izbegava nepotrebne projekcije ($project) koje su bile prisutne u prethodnom upitu, čime se smanjuje broj operacija i potreban resurs.
+
+3. **Indeks na Stranom Ključu product_id u Recenzijama**
+
+**Explain plan pre optimizacije**
+![query3-initial](https://github.com/anabb55/mongoDB-projekat/assets/75089113/6317b7b0-a293-4984-bcac-58e874d430c1)
+
+**Explain plan nakon optimizacije**
+![query3-optimized](https://github.com/anabb55/mongoDB-projekat/assets/75089113/54660d03-7fe7-447e-97ce-b4f0c1c54f29)
+
+**Grafički prikaz rezultata uz pomoć alata Metabase:**
+![query3Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/3883ec09-802c-4ebd-bfa8-a5d5b64eba89)
+![query33Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/61aaa9d9-75d6-4171-9e00-83735de9a343)
+
+
 
 
 
