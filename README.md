@@ -184,8 +184,24 @@ Analiza obuhvata sledeće korake:
    
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/d48dc24c-7364-4ee1-9fef-69823a7e9aae)
 
+Izvršavanje upita je značajno ubrzano zahvaljujući sledećim optimizacijama:
 
+1. **Ugnježdenje Varijacija u Proizvodima**:
+   - Prethodno su varijacije bile u zasebnoj kolekciji, što je zahtevalo dodatni `lookup` prilikom spajanja podataka. Sada su varijacije integrisane direktno unutar dokumenata proizvoda, eliminisajući potrebu za dodatnim `lookup` operacijama. Ova promjena smanjuje složenost upita i ubrzava izvršavanje, jer MongoDB više ne mora pretraživati dodatnu kolekciju za podatke o varijacijama.
+
+2. **Indeks na Stranom Ključu `product_id` u Recenzijama**:
+   - Dodavanje indeksa na polje `product_id` u kolekciji `reviews_final` značajno ubrzava operacije spajanja (joins) između proizvoda i njihovih recenzija. Indeksi omogućavaju MongoDB-u da brzo pronađe i spoji relevantne dokumente, čime se drastično smanjuje vreme pretrage i povećava efikasnost upita.
+
+   ```javascript
+   db.reviews_final.createIndex({ product_id: 1 });
+   ```
+
+3. **Precizno Postavljanje Tipova Podataka u Refaktorisanoj Šemi**:
+   - Prilikom refaktorisanja šeme baze podataka, pažljivo su postavljeni odgovarajući tipovi podataka (npr. string, int, double) za svako polje. Ova optimizacija eliminiše potrebu za dodatnim koracima konverzije tipova podataka tokom izvršavanja upita. Sada MongoDB može direktno raditi sa podacima u njihovim odgovarajućim formatima, čime se poboljšava brzina i efikasnost obrade podataka.
+     
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/ac072d20-b5b6-4ed8-8432-f04146adcacb)
+
+
 
 
 
