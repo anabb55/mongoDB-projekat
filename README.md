@@ -96,9 +96,20 @@ Komentari se ponovo grupišu kako bi se izračunao ukupan broj komentara (total_
 
 Na kraju se računa udeo komentara koje su ostavili korisnici sa "dry" tipom kože u odnosu na ukupan broj komentara. Ako nema komentara, udeo se postavlja na 0 kako bi se izbegla greška deljenja sa nulom.
 
-  **Explain pre optimizacije:**
+  **Explain plan pre optimizacije:**
+  
   
 ![query1-initial](https://github.com/anabb55/mongoDB-projekat/assets/75089113/f0c582b1-ee04-45d1-af6f-357ea32e4ff5)
+
+**Explain plan nakon optimizacije:**
+
+![query1-optimized](https://github.com/anabb55/mongoDB-projekat/assets/75089113/ac2f6898-97a4-4252-8cd1-2462672c7751)
+
+**Grafički prikaz rezultata uz pomoć alata Metabase:**
+
+![query1Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/48ef4191-955a-4bf0-b0f4-5c53f97c5ee5)     ![query11Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/0cfd21cd-82ef-4d89-bdda-7358b6c14142)
+
+
 
 ### Zadatak 6: Analiza Proizvoda za Njegu Lica Brendiranih za Sephoru
 
