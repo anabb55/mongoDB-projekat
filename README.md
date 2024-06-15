@@ -172,7 +172,7 @@ Kao i u prethodnom upitu imamo indeks na stranom ključu. Dodavanje indeksa na p
 
 
 ### Zadatak 3: Identifikacija Vodećih Brendova za Cleansers Proizvode kod Osoba sa Normalnom Kožom
-[Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query3.txt) | [Upit nakon optimizacije] (https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query3-optimized.txt)
+[Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query3.txt) | [Upit nakon optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query3-optimized.txt)
 
 **Cilj Analize:**
 Cilj ove analize je identifikovati 10 brendova koji imaju najviše komentara od korisnika sa normalnim tipom kože za proizvode iz sekundarne kategorije "Cleansers". Pored toga, potrebno je izračunati broj proizvoda iz kategorije "Cleansers" koji pripadaju svakom brendu, kao i ukupni broj komentara za te proizvode. Ova analiza pruža uvid u popularnost proizvoda određenih brendova među korisnicima sa normalnim tipom kože.
