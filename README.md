@@ -61,6 +61,8 @@ Projekat će omogućiti dublji uvid u preferencije i ponašanje potrošača Seph
 
 ### Zadatak 1: Analiza udela komentara za proizvode u kategoriji "Treatments"
 
+[Upit pre optimizcije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query1.txt) | [Upit nakon optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query1-optimized.txt)
+
 **Cilj Analize:**
 
 Cilj ove analize je izračunati udeo komentara koje su ostavile osobe čiji je tip kože "dry" u odnosu na ukupan broj komentara koji se odnose na proizvode iz sekundarne kategorije "Treatments" i čija je cena manja od 50 USD. Pomoću ovog upita dobijamo uvid u to koliko osobe sa suvom kožom komentarišu jeftinije Treatments proizvode.
