@@ -1,0 +1,68 @@
+db.getCollection("products_final").aggregate(
+
+    // Pipeline
+    [
+        // Stage 1
+        {
+            $match: {
+                          rating: { $gt: 4.5 }, 
+                          sephora_exclusive: true ,
+                          $expr: { $lt: ["$sale_price", "$price"]},
+                          "variation.variation_type": "Size"
+                        }
+        },
+
+        // Stage 2
+        {
+            $lookup: {
+                              from: "reviews_final",
+                              localField: "_id",
+                              foreignField: "product_id",
+                              as: "product_reviews"
+                        }
+        },
+
+        // Stage 3
+        {
+            $unwind: {
+                            path: "$product_reviews"
+                        }
+        },
+
+        // Stage 4
+        {
+            $match: {
+                              "product_reviews.is_recommended": 1.0
+                        }
+        },
+
+        // Stage 5
+        {
+            $group: {
+                              _id: "$_id",
+                              product_name: { $first: "$product_name" },
+                              sale_price_usd: { $first: "$sale_price" },
+                              original_price_usd: { $first: "$price" },
+                              variations: { $first: "$variation" },
+                              reviews: {
+                                $push: {
+                                  review_id: "$product_reviews._id",
+                                  rating: "$product_reviews.rating",
+                                }
+                              }
+                        }
+        },
+
+        // Stage 6
+        {
+            $project: {
+                              product_name: 1,
+                              sale_price_usd: 1,
+                              original_price_usd: 1,
+                              variations: 1,
+                              reviews: 1
+                        }
+        }
+    ],
+
+);
