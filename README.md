@@ -1,3 +1,4 @@
+
 ### Projekat Analize Proizvoda Sephore
 
 #### Pregled
@@ -95,6 +96,9 @@ Komentari se ponovo grupišu kako bi se izračunao ukupan broj komentara (total_
 
 Na kraju se računa udeo komentara koje su ostavili korisnici sa "dry" tipom kože u odnosu na ukupan broj komentara. Ako nema komentara, udeo se postavlja na 0 kako bi se izbegla greška deljenja sa nulom.
 
+  **Explain pre optimizacije:**
+  
+![query1-initial](https://github.com/anabb55/mongoDB-projekat/assets/75089113/f0c582b1-ee04-45d1-af6f-357ea32e4ff5)
 
 ### Zadatak 6: Analiza Proizvoda za Njegu Lica Brendiranih za Sephoru
 
