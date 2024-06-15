@@ -1,0 +1,107 @@
+db.getCollection("products_final").aggregate(
+
+    // Pipeline
+    [
+        // Stage 1
+        {
+            $match: { 
+                                    "category.primary": "Skincare",
+                                    "category.secondary": "Cleansers"
+                        }
+        },
+
+        // Stage 2
+        {
+            $lookup: {
+                                    from: "reviews_final",
+                                    localField: "_id",
+                                    foreignField: "product_id",
+                                    as: "product_reviews"
+                                }
+        },
+
+        // Stage 3
+        {
+            $unwind: {
+                            path: "$product_reviews"    
+                        }
+        },
+
+        // Stage 4
+        {
+            $match: {
+                            "product_reviews.is_recommended":0
+                        }
+        },
+
+        // Stage 5
+        {
+            $project: {
+                            _id: 1,
+                            productName: "$product_name",
+                            "product_reviews.author_id": 1,
+                            "product_reviews.rating": 1,
+                            "product_reviews.feedbackStatistic.helpfulness": 1 // Ako je relevantno za kasnije faze
+                        }
+        },
+
+        // Stage 6
+        {
+            $lookup: {
+                                    from: "authors",
+                                    localField: "product_reviews.author_id",
+                                    foreignField: "_id",
+                                    as: "review_authors"
+                                }
+        },
+
+        // Stage 7
+        {
+            $unwind: {
+                            path: "$review_authors"
+                        }
+        },
+
+        // Stage 8
+        {
+            $match: { 
+                                    "review_authors.skin_type": "oily"
+                                }
+        },
+
+        // Stage 9
+        {
+            $group: {
+                                _id: "$_id",
+                                averageRating: { $avg: "$product_reviews.rating" },
+                                reviewsCount: { $sum: 1 },
+                                 productName: { $first: "$productName" }  
+                            }
+        },
+
+        // Stage 10
+        {
+            $match: {
+                                        averageRating: { $lt: 4 }
+                                    }
+        },
+
+        // Stage 11
+        {
+            $project: {
+                                _id: 0,
+                                productName: 1,
+                                averageRating: 1,
+                                reviewsCount: 1,
+                            }
+        },
+
+        // Stage 12
+        {
+            $sort: {
+                                reviewsCount: -1 // Sortiranje po prosečnoj oceni rastuće
+                            }
+        }
+    ],
+
+);
