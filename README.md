@@ -152,6 +152,8 @@ Konačno, proizvodi se rangiraju u opadajućem redosledu prema ukupnom broju neg
 
 
 ### Zadatak 6: Analiza Proizvoda za Njegu Lica Brendiranih za Sephoru
+[Upit pre optimizacije]([URL link](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query6.txt))
+
 
 **Cilj Analize:**
 
@@ -216,12 +218,11 @@ U nedavnom slučaju optimizacije, primetili smo da je dodavanje indeksa značajn
 2. **Indeks na Polju `submission_time`**:
    - Kreiranje indeksa na polju `submission_time` dodatno je poboljšalo performanse upita. 
    - Pošto je ovo polje često korišćeno u filtriranju rezultata prema vremenskom okviru, indeksiranje omogućava brže pretraživanje i sortiranje podataka na osnovu vremenskih kriterijuma.
+3. **Ugnježdenje feedbackStatistic** unutar recenzije eliminisalo je potrebu za dodatnim lookup operacijama, što je dodatno smanjilo složenost i vreme izvršavanja upita.
 
 Kombinacijom ovih optimizacija, vreme izvršavanja upita je smanjeno sa potencijalno visokih vrednosti na samo 90 ms, čineći upite efikasnijim i bržim.
 
 ---
-
-Ova reformulacija ističe ključne korake u optimizaciji upita i koristi primer za ilustraciju značaja indeksiranja u MongoDB-u.
 
 **Metabase grafici**
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/599e2d61-3f5d-4d04-8d64-d58d6464f4ee)
