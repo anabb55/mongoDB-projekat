@@ -1,41 +1,45 @@
+--upit je optimizovan tako sto je prvo izvrseno filtriranje da bismo obradjivali manje podataka. Pored toga dodat je indeks na polje product_id(foreign key)
 
-
-
-db.reviews1.aggregate([
-    
-    {
-        $lookup: {
-            from: "products1",
-            localField: "product_id",
-            foreignField: "_id",
-            as: "product_info"
-        }
-    },
-    
-    {
-        $unwind: "$product_info"
-    },
-  
+db.products_final.aggregate([
     {
         $match: {
-            "product_info.category.secondary": "Treatments",
-            "product_info.price": {$lt :50},
+            "category.secondary": "Treatments",
+            "price" :{$lt :50},
         }
     },
-    
+
+
+    {
+        $lookup: {
+            from: "reviews_final",
+            localField: "_id",
+            foreignField: "product_id",
+            as: "reviews"
+        }
+    },
+
+
+    {
+        $unwind: "$reviews"
+    },
+
+
     {
         $lookup: {
             from: "authors",
-            localField: "author_id",
+            localField: "reviews.author_id",
             foreignField: "_id",
             as: "author_info"
         }
     },
-   
+
+
     {
         $unwind: "$author_info"
     },
-    //pravis grupe dokumenata u odnosu na tip koze i za svaki tip koze racunas ukuban broj komentara
+
+
+   
     {
         $group: {
             _id: {
@@ -44,7 +48,8 @@ db.reviews1.aggregate([
             total_reviews: { $sum: 1 }
         }
     },
-    //ovo je samo menjanje izgleda dokumenta
+
+
     {
         $project: {
             _id: 0,
@@ -52,7 +57,8 @@ db.reviews1.aggregate([
             total_reviews: 1
         }
     },
-   
+
+
     {
         $group: {
             _id: null,
@@ -64,7 +70,8 @@ db.reviews1.aggregate([
             }
         }
     },
-    
+
+
     {
         $project: {
             _id: 0,
@@ -76,4 +83,3 @@ db.reviews1.aggregate([
         }
     }
 ])
-
