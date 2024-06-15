@@ -79,6 +79,18 @@ Analiza obuhvata sledeće korake:
 6. **Prezentacija Rezultata:** :
    ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/bbdae4ac-62e7-4ff4-9ab1-c590f92124b6)
 
+   **Explain pre optimizacije:**
+   
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/9ab394d5-b3ac-4140-aa9a-3313f64e95aa)
+
+   **Explain nakon optimizacije:**
+   
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/d48dc24c-7364-4ee1-9fef-69823a7e9aae)
+
+
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/ac072d20-b5b6-4ed8-8432-f04146adcacb)
+
+
 
 ### Zadatak 7: Analiza Najuticajnijih Recenzija
 
@@ -95,6 +107,15 @@ Ova analiza ima za cilj da identifikuje 1000 najuticajnijih recenzija poslatih i
 3. **Izračunavanje Procenta Povratnih Informacija:** Za svaku recenziju izračunavaju se procenti pozitivnih i negativnih povratnih informacija kako bi se analiziralo kako korisnici percipiraju kvalitet proizvoda.
 
 4. **Rangiranje po Vremenu Slanja:** Recenzije se rangiraju na osnovu vremena slanja, počevši od najranije, što omogućava pregled trendova i promena u mišljenju korisnika tokom vremena.
+5. **Prezentacija**
+   ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/9d5b504a-b2b6-441b-abfa-873cdc6a2466)
+
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/d49d0c92-0537-4f9b-bc94-8d8410e2ade4)
+
+**Metabase grafici**
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/599e2d61-3f5d-4d04-8d64-d58d6464f4ee)
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/166dd849-8f8a-4cda-8a6a-3b553a7e0181)
+
 
 
 ### Zaključak:
@@ -119,6 +140,13 @@ Cilj ove analize je identifikovati autore sa svetlim tonom kože i suvim tipom k
 4. **Kvantifikacija Uticaja:** Izračunavanje ukupnog broja pozitivnih povratnih informacija koje su recenzije svakog autora primile.
 
 5. **Rangiranje Autora:** Sortiranje autora prema ukupnom broju pozitivnih povratnih informacija kako bi se identifikovali oni koji ostavljaju najkvalitetnije recenzije.
+6. **Prezentacija**
+      ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/783e7704-4006-45c9-81d8-8a381879b8df)
+
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/7608885a-c1b9-461b-9584-e576c62e1074)
+
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/eda07538-cb92-43cc-b576-a0191114b176)
+
 
 
 ### Zaključak:
@@ -142,7 +170,13 @@ Cilj ove analize je da identifikuje proizvode iz kategorija 'Skincare' i 'Cleans
 - **Sortiranje po Relevanciji:** Proizvodi se rangiraju prema ukupnom broju recenzija, sa onima koji imaju najviše recenzija na vrhu liste, što ukazuje na njihovu veću tržišnu relevantnost.
 ### Zaključak:
 
-Rezultati ove analize pružiće vredne uvide u performanse određenih proizvoda u realnim uslovima korišćenja. Identifikovanje proizvoda sa niskim prosečnim ocenama i negativnim recenzijama od specifičnih korisnika omogućiće Sephori da preispita i potencijalno unapredi formulacije ili pristupe marketinškim strategijama za ove proizvode. Ovo će, nadalje, doprineti poboljšanju zadovoljstva korisnika i jačanju brenda na tržištu.
+Rezultati ove analize pružiće vredne uvide u performanse određenih proizvoda u realnim uslovima korišćenja. Identifikovanje proizvoda sa niskim prosečnim ocenama i negativnim recenzijama od specifičnih korisnika omogućiće Sephori da preispita i potencijalno unapredi formulacije ili pristupe marketinškim strategijama za ove proizvode. Ovo će, nadalje, doprineti poboljšanju zadovoljstva korisnika i jačanju brenda na tržištu. :
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/97d874ea-b67d-44f0-a632-d5ede224731d)
+
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/7ad24568-794a-4f58-9ef7-6edbb5201fe7)
+
+
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/fe3bdb02-21ad-4f83-ba63-e2e63ff584c7)
 
 
 ### Zadatak 10: Analiza Kvalitetnih Proizvoda po Povoljnim Cenama
@@ -160,6 +194,14 @@ Sortirajte dobijene rezultate po ceni, od najniže ka najvišoj, kako bi se omog
 ### Zakljucak:
 
 Ovaj detaljan pristup omogućava ne samo identifikaciju proizvoda koji nude najbolji odnos cene i kvaliteta, već i dublje razumevanje preferencija potrošača zasnovano na tipu kože, čime se olakšava ciljano pozicioniranje proizvoda na tržištu.
+
+**Prezentacija**
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/182c5cbe-6bb1-4271-bd7a-801620e95841)
+
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/c96b17f0-6f55-4eab-9752-491e1b82bd06)
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/1cb12eb0-df30-464b-a164-13cf415b9bec)
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/15297a12-bf57-43ac-88b9-048ac0911fb6)
+
 
 
 
