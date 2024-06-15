@@ -152,7 +152,7 @@ Konačno, proizvodi se rangiraju u opadajućem redosledu prema ukupnom broju neg
 
 
 ### Zadatak 6: Analiza Proizvoda za Njegu Lica Brendiranih za Sephoru
-([Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query6.txt))| ([Upit nakon optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query6Opt.txt))
+[Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query6.txt)| [Upit nakon optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query6Opt.txt)
 
 
 **Cilj Analize:**
@@ -190,6 +190,9 @@ Analiza obuhvata sledeće korake:
 
 
 ### Zadatak 7: Analiza Najuticajnijih Recenzija
+[Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query7.txt
+)| [Upit nakon optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query7-opt)
+
 
 **Cilj Analize:**
 
@@ -237,6 +240,9 @@ Ovom analizom dobijamo jasan uvid u koje recenzije imaju najveći uticaj među p
 
 ### Zadatak 8: Identifikacija Najuticajnijih Autora Recenzija na Osnovu Tipa Kože
 
+[Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query8.txt
+)| [Upit nakon optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query8-opt)
+
 **Cilj Analize:**
 
 Cilj ove analize je identifikovati autore sa svetlim tonom kože i suvim tipom kože koji su napisali visoko ocenjene recenzije (ocena veća od 4). Analiza se fokusira na recenzije koje su korisnici označili kao korisne i koje imaju više pozitivnih nego negativnih povratnih informacija. Krajnji cilj je prikazati autore čije recenzije dobijaju najviše pozitivnih povratnih informacija, kako bi se prepoznali oni koji ostavljaju najuticajnije i najkorisnije recenzije.
@@ -267,6 +273,9 @@ Rezultati ove analize pružaju dragocene uvide u to koji autori konzistentno pi�
 
 ### Zadatak 9: Analiza Proizvoda za Njegu Kože sa Negativnim Recenzijama
 
+[Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query9.txt
+)| [Upit nakon optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query9-opt)
+
 **Cilj Analize:**
 
 Cilj ove analize je da identifikuje proizvode iz kategorija 'Skincare' i 'Cleansers' koji su primili negativne preporuke od korisnika sa masnom kožom. Fokus je na proizvodima čija je srednja vrednost ocena ispod 4, što ukazuje da se generalno ne smatraju dovoljno dobrim. Ova analiza će pomoći u identifikovanju proizvoda koji možda zahtevaju poboljšanja ili posebnu pažnju u razvoju i marketingu.
@@ -292,6 +301,9 @@ Rezultati ove analize pružiće vredne uvide u performanse određenih proizvoda 
 
 
 ### Zadatak 10: Analiza Kvalitetnih Proizvoda po Povoljnim Cenama
+
+[Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query10.txt
+)| [Upit nakon optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query10-opt)
 
 **Cilj Analize:**
 
