@@ -58,6 +58,44 @@ Kao odgovor na ove izazove, preduzeli smo nekoliko koraka za optimizaciju naše 
 
 Projekat će omogućiti dublji uvid u preferencije i ponašanje potrošača Sephore, identifikovati ključne faktore koji utiču na zadovoljstvo korisnika, i pomoći u optimizaciji asortimana proizvoda. Rezultati će biti ključni za strategije poboljšanja proizvoda i prilagođavanja ponude prema specifičnim potrebama i željama kupaca.
 
+### Zadatak 1: Analiza udela komentara za proizvode u kategoriji "Treatments"
+
+**Cilj Analize:**
+
+Cilj ove analize je izračunati udeo komentara koje su ostavile osobe čiji je tip kože "dry" u odnosu na ukupan broj komentara koji se odnose na proizvode iz sekundarne kategorije "Treatments" i čija je cena manja od 50 USD. Pomoću ovog upita dobijamo uvid u to koliko osobe sa suvom kožom komentarišu jeftinije Treatments proizvode.
+
+### Detalji Analize:
+
+1. **Spajanje Komentara sa Proizvodima:**
+
+Komentari iz kolekcije reviews1 se spajaju sa informacijama o proizvodima iz kolekcije products1 pomoću product_id. Ovo povezuje svaki komentar sa odgovarajućim proizvodom.
+
+
+2. **Filtriranje po Sekundarnoj Kategoriji i Ceni:**
+
+Nakon spajanja, filtriraju se proizvodi iz kategorije "Treatments" čija je cena manja od 50 USD. Time se osigurava analiza samo relevantnih proizvoda.
+
+
+3. **Spajanje Komentara sa Autorima:**
+
+Filtrirani komentari se spajaju sa informacijama o autorima iz kolekcije authors pomoću stranog kljuca. Ovaj korak omogućava pristup informacijama o tipu kože autora komentara.
+
+
+4. **Grupisanje po Tipu Kože:**
+
+Komentari se grupišu prema tipu kože autora (skin_type), a za svaki tip kože se računa ukupan broj komentara (total_reviews).
+
+
+5. **Izračunavanje Ukupnog Broja Komentara i Komentara za "Dry" Tip Kože:**
+
+Komentari se ponovo grupišu kako bi se izračunao ukupan broj komentara (total_reviews) i broj komentara od korisnika sa "dry" tipom kože (dry_skin_reviews).
+
+
+6. **Izračunavanje Udela:**
+
+Na kraju se računa udeo komentara koje su ostavili korisnici sa "dry" tipom kože u odnosu na ukupan broj komentara. Ako nema komentara, udeo se postavlja na 0 kako bi se izbegla greška deljenja sa nulom.
+
+
 ### Zadatak 6: Analiza Proizvoda za Njegu Lica Brendiranih za Sephoru
 
 **Cilj Analize:**
