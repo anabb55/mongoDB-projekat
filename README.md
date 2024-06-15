@@ -275,10 +275,32 @@ Cilj ove analize je identifikovati autore sa svetlim tonom kože i suvim tipom k
 
 5. **Rangiranje Autora:** Sortiranje autora prema ukupnom broju pozitivnih povratnih informacija kako bi se identifikovali oni koji ostavljaju najkvalitetnije recenzije.
 6. **Prezentacija**
-      ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/783e7704-4006-45c9-81d8-8a381879b8df)
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/49636a4b-2721-4643-85ba-7463b75f7380)
+**Explain pre optimizacije:**
+Upit traje predugo zbog velike količine podataka!
 
-![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/7608885a-c1b9-461b-9584-e576c62e1074)
 
+**Explain nakon optimizacije:**
+![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/3ca90108-56e4-4a4c-831b-b1debb9fc918)
+Da bi se bolje razumelo kako su optimizacije doprinele bržem izvršavanju upita, sledeća objašnjenja ističu ključne promene koje su implementirane:
+
+---
+
+Izvršavanje upita je značajno ubrzano zahvaljujući sledećim optimizacijama:
+
+1. **Dodavanje Indeksa na Polje `author_id` u Kolekciji Recenzija**:
+Indeks na `author_id` omogućava MongoDB-u da brzo pronađe sve recenzije koje pripadaju određenom autoru, značajno smanjujući vreme pretrage.
+
+   ```javascript
+   db.reviews_final.createIndex({ author_id: 1 });
+   ```
+
+2. **Ugnježdenje `feedbackStatistic` unutar Recenzija**:
+   - Pre restrukturiranja, podaci o povratnim informacijama (`feedbackStatistic`)  bili su smešteni u zasebnoj kolekciji, što je zahtevalo dodatne `lookup` operacije za njihovo povezivanje sa recenzijama. Sada su `feedbackStatistic` podaci integrisani direktno unutar dokumenata recenzija. 
+   - **Prednosti**: Ovo eliminiše potrebu za dodatnim `lookup` operacijama i omogućava direktan pristup informacijama o povratnim informacijama unutar svake recenzije. Time se smanjuje složenost upita i ubrzava proces pristupa podacima.
+---
+
+Ovaj tekst detaljno objašnjava kako su specifične optimizacije doprinele bržem izvršavanju upita u MongoDB-u.
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/eda07538-cb92-43cc-b576-a0191114b176)
 
 
@@ -310,8 +332,26 @@ Cilj ove analize je da identifikuje proizvode iz kategorija 'Skincare' i 'Cleans
 Rezultati ove analize pružiće vredne uvide u performanse određenih proizvoda u realnim uslovima korišćenja. Identifikovanje proizvoda sa niskim prosečnim ocenama i negativnim recenzijama od specifičnih korisnika omogućiće Sephori da preispita i potencijalno unapredi formulacije ili pristupe marketinškim strategijama za ove proizvode. Ovo će, nadalje, doprineti poboljšanju zadovoljstva korisnika i jačanju brenda na tržištu. :
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/97d874ea-b67d-44f0-a632-d5ede224731d)
 
+**Explain pre optimizacije:**
+Upit traje predugo zbog velike količine podataka!
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/7ad24568-794a-4f58-9ef7-6edbb5201fe7)
+---
 
+Izvršavanje upita je značajno ubrzano zahvaljujući sledećim optimizacijama:
+
+1. **Dodavanje Indeksa na Polje `author_id` u Kolekciji Recenzija**:
+Indeks na `author_id` omogućava MongoDB-u da brzo pronađe sve recenzije koje pripadaju određenom autoru, značajno smanjujući vreme pretrage.
+
+   ```javascript
+   db.reviews_final.createIndex({ author_id: 1 });
+   ```
+
+2. **Dodavanje Indeksa na Polje `product_id` u Kolekciji Recenzija**:
+Indeks na `product_id` omogućava MongoDB-u da brzo pronađe sve recenzije koje pripadaju određenom proizvodu, značajno smanjujući vreme pretrage.
+
+   ```javascript
+   db.reviews_final.createIndex({ product_id: 1 });
+---
 
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/fe3bdb02-21ad-4f83-ba63-e2e63ff584c7)
 
@@ -337,8 +377,10 @@ Ovaj detaljan pristup omogućava ne samo identifikaciju proizvoda koji nude najb
 
 **Prezentacija**
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/182c5cbe-6bb1-4271-bd7a-801620e95841)
-
+**Explain pre optimizacije:**
+Upit traje predugo zbog velike količine podataka!
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/c96b17f0-6f55-4eab-9752-491e1b82bd06)
+
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/1cb12eb0-df30-464b-a164-13cf415b9bec)
 ![image](https://github.com/anabb55/mongoDB-projekat/assets/109462923/15297a12-bf57-43ac-88b9-048ac0911fb6)
 
