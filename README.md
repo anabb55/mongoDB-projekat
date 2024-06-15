@@ -110,6 +110,12 @@ Na kraju se ra훾una udeo komentara koje su ostavili korisnici sa "dry" tipom ko�
 ![query1Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/48ef4191-955a-4bf0-b0f4-5c53f97c5ee5)     ![query11Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/0cfd21cd-82ef-4d89-bdda-7358b6c14142)
 
 
+### Zadatak 2: Rangiranje proizvoda koji se prodaju samo online po negativnim feedback-ovima na njihove komentare
+
+**Cilj Analize:**
+
+Cilj  analize je rangiranje proizvoda koji se isklju훾ivo prodaju online i koji su ocenjeni u periodu od 01.01.2018. do 01.01.2023. prema broju negativnih feedback-ova na komentare koje se odnose na njih. Za svaki proizvod je potrebno prikazati naziv proizvoda, naziv brenda, primarnu kategoriju i broj negativnih komentara. Komentari se prate dugoro훾no(period od 5 godina) kako bi se uo훾ila neka pravilnost.
+
 
 ### Zadatak 6: Analiza Proizvoda za Njegu Lica Brendiranih za Sephoru
 
