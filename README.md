@@ -212,6 +212,44 @@ Analiza obuhvata sledeće korake:
 ![query33Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/61aaa9d9-75d6-4171-9e00-83735de9a343)
 
 
+### Zadatak 4: Analiza Raspona Cena i Potencijalne Zarade za Proizvode sa Najvećom Razlikom u Cenama
+[Upit pre optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query4.txt) | [Upit nakon optimizacije](https://github.com/anabb55/mongoDB-projekat/blob/main/Queries/query4-optimized.txt)
+
+### Detalji Analize:
+
+Analiza obuhvata sledeće korake:
+
+1. **Selekcija Proizvoda:** Odabir proizvoda koji imaju definisane minimalne i maksimalne cene za varijacije.
+
+2. **Izračunavanje Razlike Cena:** Dodavanje novog polja koje računa razliku između maksimalne i minimalne cene varijacija za svaki proizvod.
+
+3. **Grupisanje po Razlici Cena:** Grupisanje proizvoda po izračunatoj razlici cena kako bi se identifikovao proizvod sa najvećom razlikom.
+
+4. **Projekcija Rezultata:** Projekcija polja koja su relevantna za analizu, kao što su naziv proizvoda, cena, razlika cena, i potencijalna zarada.
+
+5. **Dodavanje Polja za Potencijalnu Zaradu:** Računanje potencijalne ukupne zarade ako bi se prodao određeni broj proizvoda (na primer, 50 jedinica).
+
+6. **Sortiranje i Limitiranje Rezultata:** Sortiranje rezultata po izračunatoj razlici cena u opadajućem redosledu i ograničavanje na proizvod sa najvećom razlikom
+
+**Optimizacija je postignuta uz pomoć narednih koraka:**
+
+1.**Integracija Varijacija unutar Dokumenata Proizvoda:**
+
+Ovaj upit je optimizovan primenom šablona proširene reference, što omogućava da varijacije proizvoda budu integrisane direktno unutar dokumenata proizvoda. Ova semantička optimizacija uklanja potrebu za zasebnom kolekcijom varijacija, pojednostavljujući strukturu podataka i čineći je semantički ispravnom. Integracija varijacija unutar dokumenata proizvoda olakšava upravljanje podacima i izvršavanje upita, povećavajući efikasnost i performanse baze podataka.
+
+2. **Precizno Postavljanje Tipova Podataka u Refaktorisanoj Šemi**:
+Prilikom refaktorisanja šeme baze podataka, pažljivo su postavljeni odgovarajući tipovi podataka (npr. string, int, double) za svako polje. Ova optimizacija eliminiše potrebu za dodatnim koracima konverzije tipova podataka tokom izvršavanja upita. Sada MongoDB može direktno raditi sa podacima u njihovim odgovarajućim formatima, čime se poboljšava brzina i efikasnost obrade podataka.
+  
+ **Explain plan pre optimizacije**
+ ![query4-initial](https://github.com/anabb55/mongoDB-projekat/assets/75089113/3613de9d-0093-4e66-ae91-0f71fbf86f80)
+
+ **Explain plan nakon optimizacije**
+ ![query4-optimized](https://github.com/anabb55/mongoDB-projekat/assets/75089113/4db4d24a-f9db-4987-b83e-8637b95d3184)
+
+**Grafički prikaz rezultata uz pomoć alata Metabase:**
+![query44Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/8a896da1-8d30-488d-9ab0-c1fb25cf2278)
+![query4Metabase](https://github.com/anabb55/mongoDB-projekat/assets/75089113/ad74839a-7d56-437a-bb59-b3f9c472b11e)
+
 
 
 
