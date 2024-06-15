@@ -48,7 +48,7 @@ Kao odgovor na ove izazove, preduzeli smo nekoliko koraka za optimizaciju naše 
    - Autori recenzija, koji su ranije bili ugrađeni direktno u dokumente recenzija, izdvojeni su u zasebnu kolekciju. Ovo odvajanje omogućava efikasnije upravljanje autorima i njihovim profilima, kao i bolju skalabilnost prilikom ažuriranja podataka o autorima.
 
 4. **Implementacija Indeksa:**
-   - Uvedeni su indeksi na ključne kolone koje se često koriste u upitima, kao što su ID proizvoda, ID autora recenzija, i datum slanja recenzije,kao i rating . Ovo je drastično poboljšalo performanse upita, smanjujući vreme potrebno za pretragu i sortiranje podataka.
+   - Uvedeni su indeksi na ključne kolone koje se često koriste u upitima, kao što su ID proizvoda, ID autora recenzija, i datum slanja recenzije,kao i kombinovani indek (skin_type . Ovo je drastično poboljšalo performanse upita, smanjujući vreme potrebno za pretragu i sortiranje podataka.
    - Posebna pažnja je posvećena indeksiranju polja koja učestvuju u operacijama pridruživanja i filtriranja, što je rezultiralo znatno bržim vremenima odziva prilikom izvršavanja složenih analitičkih upita.
 
 
